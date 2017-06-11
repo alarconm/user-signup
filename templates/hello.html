@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{%block content %}
+<h1>User Sign-in page</h1>
+<div>
+    <form method="post">
+        <label>
+            Username:
+            <input type="text" name="name" />
+        </label>
+        <span class="error">{{username_error}}</span>
+        <label>
+            password:
+            <input type="text" name="password" />
+        </label>
+        <span class="error">{{password_error}}</span>
+        <label>
+            Verify password:
+            <input type="text" name="password_check" />
+        </label>
+        <span class="error">{{password_check_error}}</span>
+        <label>
+            Email Address(optional):
+            <input type="text" name="email" />
+        </label>
+        <span class="error">{{email_error}}</span>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock %}
