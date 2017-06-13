@@ -58,11 +58,13 @@ def validate_user():
         return render_template('hello.html', password_error=password_error,
                                username_error=username_error,
                                password_check_error=password_check_error,
-                               email_error=email_error)
+                               email_error=email_error, name=name, email=email)
 
 
 
 app.run()
+
+#TODO refactor to utilize regex for validation
 
 
 #Tests
