@@ -45,9 +45,20 @@ def validate_user():
             password = ''
             password_check = ''
     
-    if email: #Still need to check for @ and . 
+    if email:
         if not is_valid_username_pw(email):
             email_error = 'Not a valid email'
+        else:
+            if email.count('@') != 1 or email.count('.') != 1:
+                email_error = 'Not a valid email'
+
+    if not password_check_error and not password_error and not email_error and not username_error:
+        return render_template('welcome.html', title="Welcome", name=name)
+    else:
+        return render_template('hello.html', password_error=password_error,
+                               username_error=username_error,
+                               password_check_error=password_check_error,
+                               email_error=email_error)
 
 
 
