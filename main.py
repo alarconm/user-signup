@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, render_template
+import re
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -8,13 +9,11 @@ def index():
     '''Display home page'''
     return render_template('hello.html', title="User Sign-in App")
 
-def is_valid_username_pw(entry):
+def is_valid_username_pw(password):
     '''Validate string and return True if it is between 3 and 20 characters long'''
 
-    if len(entry) >= 3 and len(entry) <= 20:
-        if " " in entry:
-            return False
-        else:
+    if len(password) >= 3 and len(password) <= 20:
+        if not re.search(r'\s', password):
             return True
     else:
         return False
@@ -44,27 +43,23 @@ def validate_user():
             password_check_error = 'Your passwords did not match'
             password = ''
             password_check = ''
-    
+
     if email:
-        if not is_valid_username_pw(email):
+        if not re.match("([^@|\s]+@[^@]+\.[^@|\s]+)", email):
             email_error = 'Not a valid email'
-        else:
-            if email.count('@') != 1 or email.count('.') != 1:
-                email_error = 'Not a valid email'
 
     if not password_check_error and not password_error and not email_error and not username_error:
-        return render_template('welcome.html', title="Welcome", name=name)
+        return render_template('welcome.html', title="Welcome User", name=name)
     else:
         return render_template('hello.html', password_error=password_error,
                                username_error=username_error,
                                password_check_error=password_check_error,
-                               email_error=email_error, name=name, email=email)
+                               email_error=email_error, name=name, email=email,
+                               title='Sign-in Page')
 
 
 
 app.run()
-
-#TODO refactor to utilize regex for validation
 
 
 #Tests
