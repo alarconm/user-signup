@@ -20,7 +20,7 @@ def is_valid_username_pw(password):
 
 @app.route('/', methods=['POST'])
 def validate_user():
-    '''Validate username, password and email address entered'''
+    '''Validate username, password and email address entered. If invalid return an error'''
 
     name = request.form['name']
     password = request.form['password']
